@@ -4,6 +4,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { View, Text } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import DashboardScreen from "../screens/DashboardScreen";
 
@@ -17,6 +18,9 @@ const PlaceholderScreen = () => (
 const Tab = createBottomTabNavigator();
 
 export default function MainTabs() {
+  // Grab safe area insets
+  const insets = useSafeAreaInsets();
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -24,26 +28,35 @@ export default function MainTabs() {
         tabBarStyle: {
           backgroundColor: "#fff",
           borderTopColor: "#eee",
-          height: 60,
+          // Dynamically adjust height & bottom padding based on device
+          height: 30 + insets.bottom,
+          paddingBottom: insets.bottom,
         },
         tabBarLabelStyle: {
           fontSize: 12,
+          // If you prefer some spacing above the label, adjust marginBottom
           marginBottom: 0,
         },
         tabBarIcon: ({ color, size }) => {
           // Dynamically set the icon based on the route name
-          if (route.name === "Dashboard") {
-            return <Ionicons name="home-outline" size={size} color={color} />;
-          } else if (route.name === "Services") {
-            return <Ionicons name="grid-outline" size={size} color={color} />;
-          } else if (route.name === "Cart") {
-            return <Ionicons name="cart-outline" size={size} color={color} />;
-          } else if (route.name === "Favorites") {
-            return <Ionicons name="heart-outline" size={size} color={color} />;
-          } else if (route.name === "Profile") {
-            return <Ionicons name="person-outline" size={size} color={color} />;
+          switch (route.name) {
+            case "Dashboard":
+              return <Ionicons name="home-outline" size={size} color={color} />;
+            case "Services":
+              return <Ionicons name="grid-outline" size={size} color={color} />;
+            case "Cart":
+              return <Ionicons name="cart-outline" size={size} color={color} />;
+            case "Favorites":
+              return (
+                <Ionicons name="heart-outline" size={size} color={color} />
+              );
+            case "Profile":
+              return (
+                <Ionicons name="person-outline" size={size} color={color} />
+              );
+            default:
+              return null;
           }
-          return null;
         },
       })}
     >
@@ -52,25 +65,21 @@ export default function MainTabs() {
         component={DashboardScreen}
         options={{ title: "Home" }}
       />
-
       <Tab.Screen
         name="Services"
         component={PlaceholderScreen}
         options={{ title: "Services" }}
       />
-
       <Tab.Screen
         name="Cart"
         component={PlaceholderScreen}
         options={{ title: "Cart" }}
       />
-
       <Tab.Screen
         name="Favorites"
         component={PlaceholderScreen}
         options={{ title: "Favorites" }}
       />
-
       <Tab.Screen
         name="Profile"
         component={PlaceholderScreen}
