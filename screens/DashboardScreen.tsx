@@ -1,3 +1,5 @@
+// screens/DashboardScreen.tsx
+
 import React from "react";
 import {
   View,
@@ -9,9 +11,17 @@ import {
   FlatList,
   Dimensions,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import CategoryCard from "../components/CategoryCard";
 import OutletCard from "../components/OutletCard";
+import { DashboardStackParamList } from "../navigation/types";
+
+type DashboardNavProp = NativeStackNavigationProp<
+  DashboardStackParamList,
+  "DashboardMain"
+>;
 
 const categories = [
   {
@@ -56,6 +66,16 @@ const outlets = [
 ];
 
 const DashboardScreen: React.FC = () => {
+  const navigation = useNavigation<DashboardNavProp>();
+
+  // Handle category taps
+  const handleCategoryPress = (categoryName: string) => {
+    if (categoryName === "Haircut") {
+      navigation.navigate("HaircutRates");
+    }
+    // else if (categoryName === "Treatment") { ... }
+  };
+
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* Header Section */}
@@ -77,7 +97,10 @@ const DashboardScreen: React.FC = () => {
           <Text style={styles.bannerText}>
             Find out which haircut or hair color suits you best
           </Text>
-          <TouchableOpacity style={styles.bannerButton}>
+          <TouchableOpacity
+            style={styles.bannerButton}
+            onPress={() => navigation.navigate("VirtualStylist")}
+          >
             <Text style={styles.bannerButtonText}>VIRTUAL STYLIST</Text>
           </TouchableOpacity>
         </View>
@@ -92,15 +115,15 @@ const DashboardScreen: React.FC = () => {
         contentContainerStyle={styles.categoryScrollContent}
       >
         {categories.map((cat, index) => (
-          /* Wrap each CategoryCard in a View to add spacing */
-          <View
+          <TouchableOpacity
             key={cat.id}
+            onPress={() => handleCategoryPress(cat.name)}
             style={{
-              marginRight: index === categories.length - 1 ? 0 : 16, // e.g., 16px spacing
+              marginRight: index === categories.length - 1 ? 0 : 16,
             }}
           >
             <CategoryCard name={cat.name} icon={cat.icon} />
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
 
@@ -141,9 +164,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFFFFF",
   },
-  /* Header */
   header: {
-    marginTop: 60, // Move content further down from the status bar
+    marginTop: 60,
     paddingHorizontal: 20,
   },
   title: {
@@ -156,10 +178,9 @@ const styles = StyleSheet.create({
     color: "#666",
     marginBottom: 20,
   },
-  /* Banner */
   bannerContainer: {
     width: "100%",
-    height: 200, // Slightly taller banner
+    height: 200,
     position: "relative",
     marginBottom: 20,
   },
@@ -198,21 +219,18 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
   },
-  /* Section Titles */
   sectionTitle: {
     fontSize: 16,
     fontWeight: "600",
     marginHorizontal: 20,
     marginBottom: 10,
   },
-  /* Category Section */
   categoryScroll: {
     marginBottom: 20,
   },
   categoryScrollContent: {
-    paddingHorizontal: 60, // Adjust as needed
+    paddingHorizontal: 60,
   },
-  /* Outlets Section */
   outletHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
