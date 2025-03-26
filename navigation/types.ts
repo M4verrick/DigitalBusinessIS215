@@ -11,5 +11,7 @@ export type DashboardStackParamList = {
   DashboardMain: undefined;
   HaircutRates: undefined;
   VirtualStylist: undefined;
+  VirtualTryOn: undefined;
+  HairFilterCamera: undefined;
   // Add more screens here if needed
 };

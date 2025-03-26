@@ -1,3 +1,5 @@
+// screens/VirtualTryOnScreen.tsx
+
 import React from "react";
 import {
   View,
@@ -5,25 +7,33 @@ import {
   StyleSheet,
   TouchableOpacity,
   SafeAreaView,
-  Image,
   ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { DashboardStackParamList } from "../navigation/types";
+
+type VirtualTryOnNavProp = NativeStackNavigationProp<
+  DashboardStackParamList,
+  "VirtualTryOn"
+>;
 
 const VirtualTryOnScreen: React.FC = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<VirtualTryOnNavProp>();
 
   const handleBack = () => {
     navigation.goBack();
   };
 
   const handleSelfieMode = () => {
-    // TODO: Implement selfie mode logic
+    // Navigate to the Hair Filter Camera screen
+    
   };
 
   const handleUploadPhoto = () => {
     // TODO: Implement photo upload logic
+    navigation.navigate("HairFilterCamera");
   };
 
   return (
@@ -93,7 +103,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#000", // Customize your brand color
+    backgroundColor: "#000",
     paddingHorizontal: 16,
     paddingVertical: 12,
   },
@@ -133,8 +143,6 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 16,
     marginBottom: 30,
-
-    // Optional shadow/elevation
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
@@ -160,7 +168,6 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#000",
   },
-  /* Disclaimer */
   disclaimer: {
     fontSize: 12,
     color: "#999",
