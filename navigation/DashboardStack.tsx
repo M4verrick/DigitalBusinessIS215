@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import DashboardScreen from "../screens/DashboardScreen";
 import HaircutRatesScreen from "../screens/HaircutRatesScreen";
 import VirtualStylistScreen from "../screens/VirtualStylistScreen";
+import VirtualTryOnScreen from "../screens/VirtualTryOnScreen";
 import { DashboardStackParamList } from "./types";
 
 const Stack = createNativeStackNavigator<DashboardStackParamList>();
@@ -15,6 +16,7 @@ export default function DashboardStack() {
       <Stack.Screen name="DashboardMain" component={DashboardScreen} />
       <Stack.Screen name="HaircutRates" component={HaircutRatesScreen} />
       <Stack.Screen name="VirtualStylist" component={VirtualStylistScreen} />
+      <Stack.Screen name="VirtualTryOn" component={VirtualTryOnScreen} />
     </Stack.Navigator>
   );
 }

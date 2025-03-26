@@ -8,17 +8,25 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+// If you have a typed param list for your dashboard stack, import it
+// import { DashboardStackParamList } from "../navigation/types";
+
+// type VirtualStylistNavProp = NativeStackNavigationProp<DashboardStackParamList, "VirtualStylist">;
 
 const VirtualStylistScreen: React.FC = () => {
+  // If you have a typed param list, use it here:
+  // const navigation = useNavigation<VirtualStylistNavProp>();
+  const navigation = useNavigation(); // untyped fallback
+
   return (
     <View style={styles.container}>
-      {/* Background image */}
       <ImageBackground
         source={require("../assets/images/virtual_stylist_model.jpg")}
         style={styles.imageBackground}
         resizeMode="cover"
       >
-        {/* Dark overlay to ensure text is readable */}
         <View style={styles.overlay}>
           <Text style={styles.title}>Find The Best Haircut</Text>
           <Text style={styles.subtitle}>
@@ -27,8 +35,8 @@ const VirtualStylistScreen: React.FC = () => {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              // Add any further logic for "Get Started" here
-              // e.g., navigation to a try-on feature
+              // Navigate to the new VirtualTryOn screen
+              navigation.navigate("VirtualTryOn");
             }}
           >
             <Text style={styles.buttonText}>Get Started</Text>
@@ -44,7 +52,7 @@ export default VirtualStylistScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000", // fallback color if image fails to load
+    backgroundColor: "#000",
   },
   imageBackground: {
     flex: 1,
@@ -52,7 +60,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.3)", // dark overlay
+    backgroundColor: "rgba(0,0,0,0.3)",
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
