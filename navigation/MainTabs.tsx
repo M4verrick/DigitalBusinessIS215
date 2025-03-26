@@ -6,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { View, Text } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import DashboardScreen from "../screens/DashboardScreen";
+import DashboardStack from "./DashboardStack";
 
 // Placeholder screens for tabs you haven't built yet
 const PlaceholderScreen = () => (
@@ -40,7 +40,7 @@ export default function MainTabs() {
         tabBarIcon: ({ color, size }) => {
           // Dynamically set the icon based on the route name
           switch (route.name) {
-            case "Dashboard":
+            case "DashboardTab":
               return <Ionicons name="home-outline" size={size} color={color} />;
             case "Services":
               return <Ionicons name="grid-outline" size={size} color={color} />;
@@ -61,8 +61,8 @@ export default function MainTabs() {
       })}
     >
       <Tab.Screen
-        name="Dashboard"
-        component={DashboardScreen}
+        name="DashboardTab"
+        component={DashboardStack}
         options={{ title: "Home" }}
       />
       <Tab.Screen

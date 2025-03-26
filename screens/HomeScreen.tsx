@@ -1,5 +1,6 @@
 // screens/HomeScreen.tsx
-import React, { useState } from "react";
+
+import React, { useState, useCallback } from "react";
 import {
   View,
   Text,
@@ -24,18 +25,20 @@ const HomeScreen: React.FC = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
-  const handleChange = (key: "email" | "password", value: string) => {
-    setCredentials((prev) => ({ ...prev, [key]: value }));
-  };
+  const handleChange = useCallback(
+    (key: "email" | "password", value: string) => {
+      setCredentials((prev) => ({ ...prev, [key]: value }));
+    },
+    []
+  );
 
-  const handleLogin = () => {
+  const handleLogin = useCallback(() => {
     if (credentials.email && credentials.password) {
-      // Navigate to MainTabs
       navigation.navigate("MainTabs");
     } else {
       Alert.alert("Error", "Please enter both email and password.");
     }
-  };
+  }, [credentials, navigation]);
 
   return (
     <KeyboardAvoidingView
@@ -50,7 +53,6 @@ const HomeScreen: React.FC = () => {
       >
         <View style={styles.contentContainer}>
           <Text style={styles.logoText}>KIMAGE</Text>
-
           <View style={styles.loginForm}>
             <TextInput
               style={styles.input}
