@@ -1,0 +1,29 @@
+# Node.js (LTS recommended)
+# Download from: https://nodejs.org/en/
+Version: 16.x or higher
+
+# Expo CLI
+# Install globally:
+# npm install -g expo-cli
+
+# Project Dependencies
+# (Install in your project directory via "npm install <package>" or "yarn add <package>")
+"expo"                ~48.0.0 or higher
+"react"               ~18.0.0
+"react-native"        ~0.70.0
+"typescript"          ~4.6.0
+"@react-navigation/native" 
+"@react-navigation/native-stack"
+"@react-navigation/bottom-tabs"
+"react-native-gesture-handler"
+"react-native-reanimated"
+"react-native-screens"
+"react-native-safe-area-context"
+"@react-native-community/masked-view"
+"expo-linear-gradient"
+"expo-status-bar"
+"react-native-vector-icons"
+
+# NOTE: The versions shown (~) are indicative. 
+# Match them with your package.json or 
+# use npx expo install to get the correct versions for your SDK.

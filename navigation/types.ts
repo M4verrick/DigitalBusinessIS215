@@ -1,5 +1,6 @@
+// navigation/types.ts
+
 export type RootStackParamList = {
-  Home: undefined;
-  Dashboard: undefined;
-  Profile: { userId: string } | undefined; // Example with optional param
+  Home: undefined; // Login screen
+  MainTabs: undefined; // Tab navigator (shown after login)
 };

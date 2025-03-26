@@ -1,5 +1,4 @@
 // screens/HomeScreen.tsx
-
 import React, { useState } from "react";
 import {
   View,
@@ -14,40 +13,25 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../navigation/types";
 
-// If RootStackParamList is in App.tsx, import from "../App"
-// If it's in navigation/types.ts, import from "../navigation/types"
-import { RootStackParamList } from "../navigation/types"; // Adjust path as needed
-
-interface LoginCredentials {
-  email: string;
-  password: string;
-}
-
-// Type the navigation object based on our route definitions
 type HomeScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
   "Home"
 >;
 
 const HomeScreen: React.FC = () => {
-  const [credentials, setCredentials] = useState<LoginCredentials>({
-    email: "",
-    password: "",
-  });
-
-  // Use typed navigation
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
-  const handleChange = (key: keyof LoginCredentials, value: string) => {
+  const handleChange = (key: "email" | "password", value: string) => {
     setCredentials((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleLogin = () => {
-    // Placeholder login logic. Replace with your authentication.
     if (credentials.email && credentials.password) {
-      // Navigate to DashboardScreen upon successful login
-      navigation.navigate("Dashboard");
+      // Navigate to MainTabs
+      navigation.navigate("MainTabs");
     } else {
       Alert.alert("Error", "Please enter both email and password.");
     }
@@ -86,7 +70,6 @@ const HomeScreen: React.FC = () => {
               value={credentials.password}
               onChangeText={(text) => handleChange("password", text)}
             />
-
             <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
               <Text style={styles.loginButtonText}>Login</Text>
             </TouchableOpacity>
